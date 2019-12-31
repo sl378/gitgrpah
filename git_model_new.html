@@ -51,15 +51,15 @@
     const release = gitgraph.branch("release/1.3.0-expense");
 
     bugfix.commit("");
-    const bugfixRelease = gitgraph.branch("release/1.2.1-hot-fix");
+    const hotfixRelease = gitgraph.branch("release/1.2.1-hot-fix");
 
-    bugfixRelease.merge(bugfix).tag("v1.2.1");
-    master.merge(bugfixRelease);
-    beta.merge(bugfixRelease);
-    develop.merge(bugfixRelease);
+    hotfixRelease.merge(bugfix).tag("v1.2.1");
+    master.merge(hotfixRelease);
+<!-- If another release branch didn't currently exist, the hotfix release branch may be merged into develop -->
+<!-- develop.merge(hotfixRelease);-->
 
     release.commit("Expense bug fix ").tag("v1.3.0-beta");
-
+    release.merge(hotfixRelease);
     const releaseBugFix = gitgraph.branch("bug-fix/MOB-2342-expense-release-bug-fix");
 
     releaseBugFix.commit("");
