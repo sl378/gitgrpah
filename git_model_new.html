@@ -53,11 +53,20 @@
     const beta = gitgraph.branch("beta");
     beta.commit("");
     const develop = gitgraph.branch("develop");
-    develop.commit("Add TypeScript");
 
+
+
+    develop.commit("");
+    const generalBugFix = gitgraph.branch("bugfix/MOB-2352-task-assignee-dropdown-fix");
     const featureExpense = gitgraph.branch("feature/expense/dev");
+
+    generalBugFix.commit("");
+    generalBugFix.commit("");
+    develop.merge(generalBugFix);
+
     featureExpense
         .commit ("");
+
     const featureExpenseDev = gitgraph.branch("feature/expense/MOB-2349-expense-form");
 
     featureExpenseDev
