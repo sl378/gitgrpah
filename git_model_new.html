@@ -26,10 +26,10 @@
         "mode": "compact",
         "template": GitgraphJS.templateExtend("blackarrow", {
             <!-- Each color is assigned to a branch, order in which the branch is created -->
-            colors: ["#000", "#1d87ff", "#1bc743", "#6963FF", "#FFA657", "#E84BA5", "#f5303f", "#007d8a", "#03acbd", "#4700d4", "#c74e29" ],
+            colors: ["#000", "#1d87ff", "#1bc743", "#6963FF", "#FFA657", "#E84BA5", "#03acbd", "#f5303f", "#007d8a", "#4700d4", "#c74e29" ],
             branch: {
                 lineWidth: 2,
-                spacing: 40,
+                spacing: 40
             },
             commit: {
                 dot: {
@@ -49,7 +49,7 @@
     // Simulate git commands with Gitgraph API.
     const master = gitgraph.branch("master");
     master.commit("Initial commit");
-    const bugfix = gitgraph.branch("hotfix/MOB-2311-timer-bug");
+    const hotfix = gitgraph.branch("hotfix/MOB-2311-timer-bug");
     const beta = gitgraph.branch("beta");
     beta.commit("");
     const develop = gitgraph.branch("develop");
@@ -72,28 +72,32 @@
     featureExpenseDev
         .commit("")
         .commit("");
+    featureExpense.merge(develop);
     featureExpense.merge(featureExpenseDev);
     develop.merge(featureExpense);
-    const release = gitgraph.branch("release/1.3.0-expense");
+    const expenseRelease = gitgraph.branch("release/1.3.0-expense").commit("").tag("v1.3.0-beta");
 
-    bugfix.commit("");
-    const hotfixRelease = gitgraph.branch("release/1.2.1");
 
-    hotfixRelease.merge(bugfix).tag("v1.2.1");
-    master.merge(hotfixRelease);
-<!-- If another release branch didn't currently exist, the hotfix release branch may be merged into develop -->
+
+
+<!-- If another expenseRelease branch didn't currently exist, the hotfix release branch may be merged into develop -->
 <!-- develop.merge(hotfixRelease);-->
-
-    release.commit("Expense bug fix ").tag("v1.3.0-beta");
-    release.merge(hotfixRelease);
     const releaseBugFix = gitgraph.branch("bugfix/1.3.0-MOB-2342-expense-release-bug-fix");
+    hotfix.commit("").commit("");
+    const hotfixRelease = gitgraph.branch("release/1.2.1");
+    hotfixRelease.merge(hotfix).tag("v1.2.1");
+
+    master.merge(hotfixRelease);
+    develop.merge(hotfixRelease);
+    expenseRelease.merge(hotfixRelease);
 
     releaseBugFix.commit("");
     releaseBugFix.commit("");
-    release.merge(releaseBugFix);
-    beta.merge(release);
-    master.merge(release).tag("v1.3.0");
-    develop.merge(release);
-  </script>
+    expenseRelease.merge(releaseBugFix);
+
+    beta.merge(expenseRelease);
+    master.merge(expenseRelease).tag("v1.3.0");
+    develop.merge(expenseRelease);
+</script>
 </body>
 </html>
