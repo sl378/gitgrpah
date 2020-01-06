@@ -19,15 +19,32 @@
     const graphContainer = document.getElementById("graph-container");
 
     // Instantiate the graph.
-    const options = {
+
+    const gitgraph = GitgraphJS.createGitgraph(graphContainer, {
+
         "orientation": "vertical-reverse",
         "mode": "compact",
-        "template": "blackarrow"
+        "template": GitgraphJS.templateExtend("blackarrow", {
+            <!-- Each color is assigned to a branch, order in which the branch is created -->
+            colors: ["#000", "#1d87ff", "#1bc743", "#6963FF", "#FFA657", "#E84BA5", "#f5303f", "#007d8a", "#03acbd", "#4700d4", "#c74e29" ],
+            branch: {
+                lineWidth: 2,
+                spacing: 40,
+            },
+            commit: {
+                dot: {
+                    size: 12,
+                    strokeColor: "#fff",
+                    strokeWidth: 4
+                }
+            },
+            arrow: {
+                size: 8,
+                offset: -1.5,
+           },
+        })
 
-    }
-
-
-    const gitgraph = GitgraphJS.createGitgraph(graphContainer, options);
+    });
 
     // Simulate git commands with Gitgraph API.
     const master = gitgraph.branch("master");
