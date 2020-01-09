@@ -50,6 +50,7 @@
     const master = gitgraph.branch("master");
     master.commit("Initial commit");
     const hotfix = gitgraph.branch("hotfix/MOB-2311-timer-bug");
+    const hotfixRelease = gitgraph.branch("release/1.2.1");
     const beta = gitgraph.branch("beta");
     beta.commit("");
     const develop = gitgraph.branch("develop");
@@ -84,7 +85,6 @@
 <!-- develop.merge(hotfixRelease);-->
     const releaseBugFix = gitgraph.branch("bugfix/1.3.0-MOB-2342-expense-release-bug-fix");
     hotfix.commit("").commit("");
-    const hotfixRelease = gitgraph.branch("release/1.2.1");
     hotfixRelease.merge(hotfix).tag("v1.2.1");
 
     master.merge(hotfixRelease);
