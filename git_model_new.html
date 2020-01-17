@@ -26,7 +26,7 @@
         "mode": "compact",
         "template": GitgraphJS.templateExtend("blackarrow", {
             <!-- Each color is assigned to a branch, order in which the branch is created -->
-            colors: ["#000", "#1d87ff", "#1bc743", "#6963FF", "#FFA657", "#E84BA5", "#03acbd", "#f5303f", "#007d8a", "#4700d4", "#c74e29" ],
+            colors: ["#000", "#1d87ff", "#1bc743", "#6963FF", "#FFA657", "#E84BA5", "#d536ff", "#f5303f", "#10cbce", "#4700d4", "#c74e29" ],
             branch: {
                 lineWidth: 2,
                 spacing: 40
@@ -58,7 +58,7 @@
 
 
     develop.commit("");
-    const generalBugFix = gitgraph.branch("bugfix/MOB-2352-task-assignee-dropdown-fix");
+    const generalBugFix = gitgraph.branch("ticket/MOB-2352-task-assignee-dropdown-fix");
     const featureExpense = gitgraph.branch("feature/expense/dev");
 
     generalBugFix.commit("");
@@ -83,7 +83,7 @@
 
 <!-- If another expenseRelease branch didn't currently exist, the hotfix release branch may be merged into develop -->
 <!-- develop.merge(hotfixRelease);-->
-    const releaseBugFix = gitgraph.branch("bugfix/1.3.0-MOB-2342-expense-release-bug-fix");
+    const releaseBugFix = gitgraph.branch("ticket/1.3.0-MOB-2342-expense-release-bug-fix");
     hotfix.commit("").commit("");
     hotfixRelease.merge(hotfix).tag("v1.2.1");
 
